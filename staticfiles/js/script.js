@@ -1,1 +1,1 @@
-console.log("Script loaded successfully.");
+console.log("Life, the Universe and Everything!")
