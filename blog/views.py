@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.contrib import messages
-from .models import Post
+from .models import Post, User
 from .forms import CommentForm
 
 # Create your views here.
@@ -31,6 +31,7 @@ def post_detail(request, slug):
     comment_count = post.comments.filter(approved=True).count()
 
     if request.method == "POST":
+        print(f"Received POST request with data: {request.POST}")
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
@@ -44,6 +45,8 @@ def post_detail(request, slug):
 
     comment_form = CommentForm()
 
+    print("About to render template")
+
     return render(
         request,
         "blog/post_detail.html",
@@ -54,3 +57,22 @@ def post_detail(request, slug):
             "comment_form": comment_form,
         },
     )
+
+
+def profile_page(request):
+    """
+    Display the profile page of the logged-in user.
+
+    **Context**
+
+    ``user``
+        The currently logged-in user.
+
+    **Template:**
+
+    :template:`blog/profile_page.html`
+    """
+    
+    user = get_object_or_404(User, user=request.user)
+    # Retrieve all comments for the user object
+    comments = user.commenter.all().order_by("-created_on")
