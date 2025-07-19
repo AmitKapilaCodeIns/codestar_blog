@@ -88,6 +88,7 @@ def comment_edit(request, slug, comment_id):
 
         queryset = Post.objects.filter(status=1)
         post = get_object_or_404(queryset, slug=slug)
+        # retrieving product (pk is primary key)
         comment = get_object_or_404(Comment, pk=comment_id)
         comment_form = CommentForm(data=request.POST, instance=comment)
 
@@ -113,8 +114,8 @@ def comment_delete(request, slug, comment_id):
     """
     view to delete a comment on a post.
     """
-    queryset = Post.objects.filter(status=1)
-    post = get_object_or_404(queryset, slug=slug)
+    # queryset = Post.objects.filter(status=1)
+    # post = get_object_or_404(queryset, slug=slug)
     comment = get_object_or_404(Comment, pk=comment_id)
 
     if comment.author == request.user:
