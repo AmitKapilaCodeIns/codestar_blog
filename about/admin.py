@@ -1,10 +1,13 @@
 from django.contrib import admin
-from .models import About, CollaborateRequest
 from django_summernote.admin import SummernoteModelAdmin
+from .models import About, CollaborateRequest
 
 
 @admin.register(About)
 class AboutAdmin(SummernoteModelAdmin):
+    """
+    Admin interface for the About model, using Summernote for rich text editing.
+    """
 
     summernote_fields = ('content',)
 
@@ -19,4 +22,7 @@ class AboutAdmin(SummernoteModelAdmin):
 
 @admin.register(CollaborateRequest)
 class CollaborateRequestAdmin(admin.ModelAdmin):
+    """
+    Lists message and read fields for display in the admin panel.
+    """
     list_display = ('message', 'read',)

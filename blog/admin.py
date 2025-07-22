@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Post, Comment
 from django_summernote.admin import SummernoteModelAdmin
+from .models import Post, Comment
 
 
 """
@@ -18,6 +18,10 @@ after installing django-summernote because it comes with its own database models
 """
 @admin.register(Post)
 class PostAdmin(SummernoteModelAdmin):
+    """
+    Lists fields for display in the admin panel, fields that can be searched,
+    filtered, and prepopulated fields and rich text editing fields.
+    """
 
     list_display = ('title', 'slug', 'status', 'created_on')
     search_fields = ['title', 'content']
